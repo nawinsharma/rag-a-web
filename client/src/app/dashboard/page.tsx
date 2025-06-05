@@ -62,7 +62,7 @@ export default function Dashboard() {
         setIsProcessing(true)
 
         try {
-            const response = await axios.post('http://127.0.0.1:54321/ingestion', {
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/ingestion`, {
                 url
             });
             if (!response) {
