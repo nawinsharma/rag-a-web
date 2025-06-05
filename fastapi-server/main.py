@@ -50,7 +50,8 @@ def ingest_data(request: IngestRequest):
     try:
         loader = WebBaseLoader(url)
         docs = loader.load()
-        collection_name = url.split("//")[-1].split("/")[0];
+        domain_name = url.split("//")[-1].split("/")[0];
+        collection_name = f"{domain_name}_vectors"
         print(f"Collection Name: {collection_name}")
         # Chunking
         text_splitter = RecursiveCharacterTextSplitter(
@@ -68,12 +69,12 @@ def ingest_data(request: IngestRequest):
         vector_store = QdrantVectorStore.from_documents(
             documents=split_docs,
             url="http://localhost:6333",
-            collection_name=f"{collection_name}_vectors",
+            collection_name=f"{collection_name}",
             embedding=embedding_model
         )
         print("Vector store created and data ingested.", vector_store)
-        print(f"Data ingested into collection: {collection_name}_vectors")
-        return {"your_url": f"{url}", "collection_name": f"{collection_name}_vectors", "message": "Ingestion completed successfully."}
+        print(f"Data ingested into collection: {collection_name}")
+        return {"your_url": f"{url}", "collection_name": f"{collection_name}", "message": "Ingestion completed successfully."}
     except Exception as e:
         return {"error": f"An error occurred during ingestion: {str(e)}"}
     
