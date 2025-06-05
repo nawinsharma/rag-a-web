@@ -6,8 +6,10 @@ from langchain_qdrant import QdrantVectorStore
 from langchain_openai import OpenAIEmbeddings
 from openai import OpenAI
 from pydantic import BaseModel
-
 from fastapi.middleware.cors import CORSMiddleware
+import os
+QDRANT_URL = os.getenv("QDRANT_URL")
+QDRANT_API_KEY = os.getenv("QDRANT_API_KEY")
 
 class IngestRequest(BaseModel):
     url: str
@@ -68,9 +70,11 @@ def ingest_data(request: IngestRequest):
         # Vector Store with Qdrant
         vector_store = QdrantVectorStore.from_documents(
             documents=split_docs,
-            url="http://localhost:6333",
+            url=QDRANT_URL,
             collection_name=f"{collection_name}",
-            embedding=embedding_model
+            embedding=embedding_model,
+            prefer_grpc=False,
+            api_key=QDRANT_API_KEY
         )
         print("Vector store created and data ingested.", vector_store)
         print(f"Data ingested into collection: {collection_name}")
@@ -92,13 +96,23 @@ def query_data(request: QueryRequest):
     try:
         import requests 
         print(f"Checking if collection '{collection_name}' exists in Qdrant...")
-        
-        response = requests.get(f"http://localhost:6333/collections/{collection_name}")
+
+        headers = {
+            "api-key": QDRANT_API_KEY,
+            "accept": "application/json"
+        }
+
+        response = requests.get(
+            f"{QDRANT_URL}/collections/{collection_name}",
+            headers=headers
+        )
+
         print(f"Response: {response}")
         print(f"Response status code: {response.status_code}")
+
         if response.status_code != 200:
             return {"error": f"No data found for '{collection_name}'. Please ingest data first using the /ingestion endpoint."}
-        
+
         # Initialize OpenAI client
         client = OpenAI()
 
@@ -109,9 +123,11 @@ def query_data(request: QueryRequest):
 
         # Vector DB
         vector_db = QdrantVectorStore.from_existing_collection(
-            url="http://localhost:6333",
+            url=QDRANT_URL,
             collection_name=f"{collection_name}",
-            embedding=embedding_model
+            embedding=embedding_model,
+            prefer_grpc=False,
+            api_key=QDRANT_API_KEY
         )
         print("Vector store initialized for querying.")
 
