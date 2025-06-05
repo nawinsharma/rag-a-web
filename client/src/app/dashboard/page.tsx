@@ -104,7 +104,7 @@ export default function Dashboard() {
                             variant="ghost"
                             size="icon"
                             onClick={() => router.push("/")}
-                            className="text-white/70 hover:text-white hover:bg-white/10"
+                            className="text-white/70 hover:text-white hover:bg-white/10 cursor-pointer"
                         >
                             <ArrowLeft size={20} />
                         </Button>
@@ -130,11 +130,11 @@ export default function Dashboard() {
                             <div className="text-center space-y-3 sm:space-y-4">
                                 <motion.div
                                     whileHover={{ scale: 1.05 }}
-                                    className="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-full bg-gradient-to-r from-indigo-500 to-rose-500 flex items-center justify-center mb-4 sm:mb-6"
+                                    className="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-full flex items-center justify-center"
                                 >
                                     <Globe size={24} className="text-white sm:w-8 sm:h-8" />
                                 </motion.div>
-                                <h2 className="text-2xl sm:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 via-white/90 to-rose-300">
+                                <h2 className="text-2xl sm:text-3xl text-white mt-[-10] font-bold bg-clip-text text-transparent">
                                     Enter Website URL
                                 </h2>
                                 <p className="text-sm sm:text-base text-white/60 px-4">Paste any website URL to start chatting with its content</p>
@@ -156,7 +156,7 @@ export default function Dashboard() {
                                     <Button
                                         type="submit"
                                         disabled={isProcessing || !url.trim()}
-                                        className="w-full h-12 sm:h-14 bg-gradient-to-r from-indigo-500 to-rose-500 hover:from-indigo-600 hover:to-rose-600 text-white text-base sm:text-lg font-semibold rounded-xl shadow-lg shadow-indigo-500/25"
+                                        className="w-full h-12 sm:h-14 bg-gradient-to-r from-indigo-500 to-pink-300 hover:from-indigo-600 hover:to-pink-400 text-white text-base sm:text-lg font-semibold cursor-pointer rounded-xl shadow-lg shadow-indigo-500/25"
                                     >
                                         {isProcessing ? (
                                             <div className="flex items-center gap-2 sm:gap-3">
@@ -197,7 +197,7 @@ export default function Dashboard() {
                                                     e.stopPropagation()
                                                     removeCollection(collection.id)
                                                 }}
-                                                className="text-white/40 hover:text-red-400 hover:bg-red-500/10 flex-shrink-0"
+                                                className="text-white/40 cursor-pointer hover:text-red-400 hover:bg-red-500/10 flex-shrink-0"
                                             >
                                                 <Trash2 size={14} />
                                             </Button>

@@ -59,9 +59,8 @@ export function MessageBubble({ message }: MessageBubbleProps) {
         {/* Timestamp */}
         <div
           className={cn(
-            "text-xs opacity-0 group-hover:opacity-60 transition-opacity duration-200 mt-1",
-            isUser ? "text-indigo-200" : "text-white/60",
-          )}
+            "text-xs text-blue-300 mt-1"
+            )}
         >
           {new Date(message.timestamp).toLocaleTimeString([], {
             hour: "2-digit",

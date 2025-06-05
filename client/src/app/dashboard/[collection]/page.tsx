@@ -132,7 +132,7 @@ export default function CollectionChatPage() {
                             variant="ghost"
                             size="icon"
                             onClick={handleBackToDashboard}
-                            className="text-white/70 hover:text-white hover:bg-white/10"
+                            className="text-white/70 hover:text-white hover:bg-white/10 cursor-pointer"
                         >
                             <ArrowLeft size={20} />
                         </Button>

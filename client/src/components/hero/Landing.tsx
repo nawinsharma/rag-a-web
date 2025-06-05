@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { useRouter } from "next/navigation"
 import { PageBackground } from "@/components/layout/page-background"
 import { Sparkles } from "lucide-react"
+import Link from "next/link"
 
 const pacifico = Pacifico({
   subsets: ["latin"],
@@ -15,7 +16,7 @@ const pacifico = Pacifico({
 })
 
 export default function Landing({
-  badge = "Website AI",
+  badge = "nawin.xyz",
   title1 = "Interact With",
   title2 = "Any Website",
 }: {
@@ -78,7 +79,7 @@ export default function Landing({
               >
                 <Sparkles size={12} className="text-white" />
               </motion.div>
-              <span className="text-sm text-white/60 tracking-wide font-medium">{badge}</span>
+              <Link href="https://nawin.xyz" target="_blank" className="text-sm text-white/60 tracking-wide cursor-pointer font-medium">{badge}</Link>
             </motion.div>
 
             {/* Title */}
@@ -124,9 +125,8 @@ export default function Landing({
                     router.push("/dashboard");
                   }}
                   size="lg"
-                  className="px-10 py-6 text-lg bg-gradient-to-r from-indigo-500 to-rose-500 hover:from-indigo-600 hover:to-rose-600 text-white rounded-full border-none shadow-2xl shadow-indigo-500/25 font-semibold tracking-wide"
+                  className="px-10 py-6 text-lg bg-gradient-to-r from-indigo-500 to-pink-300 hover:from-indigo-600 hover:to-pink-400 text-white rounded-full border-none cursor-pointer font-semibold tracking-wide"
                 >
-                  <Sparkles className="mr-2" size={20} />
                   Start Chatting
                 </Button>
               </motion.div>
