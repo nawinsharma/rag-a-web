@@ -1,4 +1,15 @@
+version: "3.8"
 services:
+  api:
+    build: .
+    container_name: fastapi-server
+    ports:
+      - "8888:8888"
+    env_file:
+      - .env
+    depends_on:
+      - vector-db
+
   vector-db:
     image: qdrant/qdrant
     container_name: vector-db
