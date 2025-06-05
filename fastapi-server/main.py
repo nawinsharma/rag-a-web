@@ -1,1 +1,124 @@
-print("hello mom")
+# main.py
+from fastapi import FastAPI
+from dotenv import load_dotenv
+from langchain_community.document_loaders import WebBaseLoader
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_qdrant import QdrantVectorStore
+from langchain_openai import OpenAIEmbeddings
+from openai import OpenAI
+from pydantic import BaseModel
+
+class IngestRequest(BaseModel):
+    url: str
+
+class QueryRequest(BaseModel):
+    query: str
+    collection_name: str
+
+load_dotenv()
+app = FastAPI()
+
+@app.get("/")
+def read_root():
+    return {"message": "Hello from FastAPI!"}
+
+@app.get("/health")
+def health_check():
+    return {"status": "OK"}
+
+@app.post('/ingestion')
+def ingest_data(request: IngestRequest):
+    url = request.url
+    if not url:
+        return {"error": "URL is required for ingestion."}
+    try:
+        loader = WebBaseLoader(url)
+        docs = loader.load()
+        collection_name = url.split("//")[-1].split("/")[0]  # Extract collection name from URL
+        print(f"Collection Name: {collection_name}")
+        # Chunking
+        text_splitter = RecursiveCharacterTextSplitter(
+            chunk_size=1000,
+            chunk_overlap=400
+        )
+        split_docs = text_splitter.split_documents(docs)
+        print(f"Number of chunks created: {len(split_docs)}")
+        # Embedding Model
+        embedding_model = OpenAIEmbeddings(
+            model="text-embedding-3-large"
+        )
+        print("Embedding model initialized.")
+        # Vector Store with Qdrant
+        vector_store = QdrantVectorStore.from_documents(
+            documents=split_docs,
+            url="http://localhost:6333",
+            collection_name=f"{collection_name}_vectors",
+            embedding=embedding_model
+        )
+        print("Vector store created and data ingested.", vector_store)
+        print(f"Data ingested into collection: {collection_name}_vectors")
+
+        return {"message": "Ingestion completed successfully."}
+    except Exception as e:
+        return {"error": f"An error occurred during ingestion: {str(e)}"}
+    
+
+@app.post('/query')
+def query_data(request: QueryRequest):
+    query = request.query
+    collection_name = request.collection_name
+    print(f"Query: {query}, Collection Name: {collection_name}")
+    if not query:
+        return {"error": "Query is required."}
+    if not collection_name:
+        return {"error": "Collection name is not set. Please ingest data first."}
+    
+    try:
+        import requests 
+        response = requests.get(f"http://localhost:6333/collections/{collection_name}_vectors")
+        if response.status_code != 200:
+            return {"error": f"No data found for '{collection_name}'. Please ingest data first using the /ingestion endpoint."}
+        
+        # Initialize OpenAI client
+        client = OpenAI()
+
+        # Vector Embeddings
+        embedding_model = OpenAIEmbeddings(
+            model="text-embedding-3-large"
+        )
+
+        # Vector DB
+        vector_db = QdrantVectorStore.from_existing_collection(
+            url="http://localhost:6333",
+            collection_name=f"{collection_name}_vectors",
+            embedding=embedding_model
+        )
+
+        # Similarity Search
+        search_results = vector_db.similarity_search(query=query)
+
+        context = "\n\n\n".join([
+            f"Content: {result.page_content}\nSource URL: {result.metadata.get('source', 'N/A')}"
+            for result in search_results
+        ])
+
+        SYSTEM_PROMPT = f"""
+        You are a helpful AI assistant. You answer the user's query based **only** on the provided website content.
+
+        Each piece of context comes from a specific webpage. Help the user by answering their query and suggesting which source URL they should visit for more information.
+
+        Context:
+        {context}
+        """
+
+        chat_completion = client.chat.completions.create(
+            model="gpt-4.1",
+            messages=[
+                {"role": "system", "content": SYSTEM_PROMPT},
+                {"role": "user", "content": query},
+            ]
+        )
+
+        return {"response": chat_completion.choices[0].message.content}
+    except Exception as e:
+        return {"error": f"An error occurred during querying: {str(e)}"}
