@@ -60,11 +60,12 @@ export function PDFUpload({ onUpload, isUploading }: PDFUploadProps) {
         ) : (
           <div className="flex flex-col items-center gap-4">
             <p className="text-white/80">
-              Drag and drop your PDF here, or click to select
+              Drag and drop your PDF here , or click to select
             </p>
+            <p className="text-blue-700">max size 10 mb</p>
             <Button
               variant="outline"
-              className="bg-white/5 border-white/20 text-white hover:bg-white/10"
+              className="bg-black hover:bg-gray-900 text-white hover:text-gray-200 cursor-pointer"
             >
               Select PDF
             </Button>
