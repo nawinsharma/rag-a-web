@@ -83,12 +83,6 @@ A modern web application that implements Retrieval-Augmented Generation (RAG) us
    docker-compose up --build
    ```
 
-## Development
-
-- Frontend runs on: http://localhost:3000
-- Backend API runs on: http://localhost:8000
-- API documentation available at: http://localhost:8000/docs
-
 ## Features
 
 - Modern, responsive UI with Tailwind CSS
