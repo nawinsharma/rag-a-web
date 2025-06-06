@@ -1,15 +1,18 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { ElegantShape } from "@/components/ui/elegant-shape"
+import { ElegantShape } from "@/components/ui/elegant-shape";
 
 interface PageBackgroundProps {
-  variant?: "hero" | "dashboard"
-  children: React.ReactNode
+  variant?: "hero" | "dashboard";
+  children: React.ReactNode;
 }
 
-export function PageBackground({ variant = "hero", children }: PageBackgroundProps) {
+export function PageBackground({
+  variant = "hero",
+  children,
+}: PageBackgroundProps) {
   const shapes = {
     hero: [
       {
@@ -87,7 +90,7 @@ export function PageBackground({ variant = "hero", children }: PageBackgroundPro
         intensity: "low" as const,
       },
     ],
-  }
+  };
 
   return (
     <div className="relative min-h-screen w-full bg-[#030303] text-white overflow-hidden">
@@ -107,5 +110,5 @@ export function PageBackground({ variant = "hero", children }: PageBackgroundPro
       {/* Bottom gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-[#030303] via-transparent to-[#030303]/80 pointer-events-none" />
     </div>
-  )
+  );
 }

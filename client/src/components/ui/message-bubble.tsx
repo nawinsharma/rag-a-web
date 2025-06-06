@@ -1,18 +1,18 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { cn } from "@/lib/utils"
-import { AILogo } from "@/components/ui/ai-logo"
-import { User } from "lucide-react"
-import type { Message } from "@/lib/store"
+import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
+import { AILogo } from "@/components/ui/ai-logo";
+import { User } from "lucide-react";
+import type { Message } from "@/lib/store";
 
 interface MessageBubbleProps {
-  message: Message
-  isLatest?: boolean
+  message: Message;
+  isLatest?: boolean;
 }
 
 export function MessageBubble({ message }: MessageBubbleProps) {
-  const isUser = message.role === "user"
+  const isUser = message.role === "user";
 
   return (
     <motion.div
@@ -22,7 +22,10 @@ export function MessageBubble({ message }: MessageBubbleProps) {
         duration: 0.4,
         ease: [0.25, 0.4, 0.25, 1],
       }}
-      className={cn("flex gap-3 group", isUser ? "flex-row-reverse" : "flex-row")}
+      className={cn(
+        "flex gap-3 group",
+        isUser ? "flex-row-reverse" : "flex-row",
+      )}
     >
       {/* Avatar */}
       <motion.div
@@ -57,11 +60,7 @@ export function MessageBubble({ message }: MessageBubbleProps) {
         <p className="text-sm leading-relaxed">{message.content}</p>
 
         {/* Timestamp */}
-        <div
-          className={cn(
-            "text-xs text-blue-300 mt-1"
-            )}
-        >
+        <div className={cn("text-xs text-blue-300 mt-1")}>
           {new Date(message.timestamp).toLocaleTimeString([], {
             hour: "2-digit",
             minute: "2-digit",
@@ -79,5 +78,5 @@ export function MessageBubble({ message }: MessageBubbleProps) {
         />
       </motion.div>
     </motion.div>
-  )
+  );
 }

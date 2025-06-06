@@ -112,7 +112,6 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
-
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -190,8 +189,9 @@
 
 /* Smooth animations */
 * {
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow,
-    transform, filter, backdrop-filter;
+  transition-property:
+    color, background-color, border-color, text-decoration-color, fill, stroke,
+    opacity, box-shadow, transform, filter, backdrop-filter;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 150ms;
 }

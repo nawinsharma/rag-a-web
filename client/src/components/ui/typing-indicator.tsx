@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { AILogo } from "@/components/ui/ai-logo"
+import { motion } from "framer-motion";
+import { AILogo } from "@/components/ui/ai-logo";
 
 export function TypingIndicator() {
   return (
@@ -37,5 +37,5 @@ export function TypingIndicator() {
         </div>
       </div>
     </motion.div>
-  )
+  );
 }

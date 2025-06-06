@@ -1,42 +1,47 @@
-import { create } from "zustand"
-import { persist } from "zustand/middleware"
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 export type Message = {
-  id: string
-  role: "user" | "assistant"
-  content: string
-  timestamp: number
-}
+  id: string;
+  role: "user" | "assistant";
+  content: string;
+  timestamp: number;
+};
 
 export type WebsiteCollection = {
-  id: string
-  url: string
-  name: string
-  createdAt: number
-  chatHistory: Message[]
-}
+  id: string;
+  url: string;
+  name: string;
+  createdAt: number;
+  chatHistory: Message[];
+};
 
 interface WebsiteStore {
   // Current session
-  collectionName: string | null
-  currentUrl: string | null
-  isProcessing: boolean
-  isAiTyping: boolean
+  collectionName: string | null;
+  currentUrl: string | null;
+  isProcessing: boolean;
+  isAiTyping: boolean;
 
   // Collections history with their own chat histories
-  collections: WebsiteCollection[]
+  collections: WebsiteCollection[];
 
   // Actions
-  setCollectionName: (name: string) => void
-  setCurrentUrl: (url: string) => void
-  setIsProcessing: (processing: boolean) => void
-  setIsAiTyping: (typing: boolean) => void
-  addMessage: (message: Omit<Message, "id" | "timestamp">, collectionName: string) => void
-  clearChat: (collectionName: string) => void
-  addCollection: (collection: Omit<WebsiteCollection, "id" | "createdAt" | "chatHistory">) => void
-  removeCollection: (id: string) => void
-  resetSession: () => void
-  getChatHistory: (collectionName: string) => Message[]
+  setCollectionName: (name: string) => void;
+  setCurrentUrl: (url: string) => void;
+  setIsProcessing: (processing: boolean) => void;
+  setIsAiTyping: (typing: boolean) => void;
+  addMessage: (
+    message: Omit<Message, "id" | "timestamp">,
+    collectionName: string,
+  ) => void;
+  clearChat: (collectionName: string) => void;
+  addCollection: (
+    collection: Omit<WebsiteCollection, "id" | "createdAt" | "chatHistory">,
+  ) => void;
+  removeCollection: (id: string) => void;
+  resetSession: () => void;
+  getChatHistory: (collectionName: string) => Message[];
 }
 
 export const useWebsiteStore = create<WebsiteStore>()(
@@ -70,7 +75,7 @@ export const useWebsiteStore = create<WebsiteStore>()(
                     },
                   ],
                 }
-              : collection
+              : collection,
           ),
         })),
 
@@ -79,7 +84,7 @@ export const useWebsiteStore = create<WebsiteStore>()(
           collections: state.collections.map((collection) =>
             collection.name === collectionName
               ? { ...collection, chatHistory: [] }
-              : collection
+              : collection,
           ),
         })),
 
@@ -110,8 +115,10 @@ export const useWebsiteStore = create<WebsiteStore>()(
         }),
 
       getChatHistory: (collectionName) => {
-        const collection = get().collections.find((c) => c.name === collectionName)
-        return collection?.chatHistory || []
+        const collection = get().collections.find(
+          (c) => c.name === collectionName,
+        );
+        return collection?.chatHistory || [];
       },
     }),
     {
@@ -121,4 +128,4 @@ export const useWebsiteStore = create<WebsiteStore>()(
       }),
     },
   ),
-)
+);

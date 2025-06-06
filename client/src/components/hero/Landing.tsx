@@ -1,30 +1,30 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { Pacifico } from "next/font/google"
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { useRouter } from "next/navigation"
-import { PageBackground } from "@/components/layout/page-background"
-import { Sparkles } from "lucide-react"
-import Link from "next/link"
+import { motion } from "framer-motion";
+import { Pacifico } from "next/font/google";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
+import { PageBackground } from "@/components/layout/page-background";
+import { Sparkles } from "lucide-react";
+import Link from "next/link";
 
 const pacifico = Pacifico({
   subsets: ["latin"],
   weight: ["400"],
   variable: "--font-pacifico",
-})
+});
 
 export default function Landing({
   badge = "nawin.xyz",
   title1 = "Interact With",
   title2 = "Any Website",
 }: {
-  badge?: string
-  title1?: string
-  title2?: string
+  badge?: string;
+  title1?: string;
+  title2?: string;
 }) {
-  const router = useRouter()
+  const router = useRouter();
 
   const fadeUpVariants = {
     hidden: { opacity: 0, y: 30 },
@@ -37,7 +37,7 @@ export default function Landing({
         ease: [0.25, 0.4, 0.25, 1],
       },
     }),
-  }
+  };
 
   const buttonVariants = {
     hover: {
@@ -51,7 +51,7 @@ export default function Landing({
     tap: {
       scale: 0.98,
     },
-  }
+  };
 
   return (
     <PageBackground variant="hero">
@@ -79,16 +79,28 @@ export default function Landing({
               >
                 <Sparkles size={12} className="text-white" />
               </motion.div>
-              <Link href="https://nawin.xyz" target="_blank" className="text-sm text-white/60 tracking-wide cursor-pointer font-medium">{badge}</Link>
+              <Link
+                href="https://nawin.xyz"
+                target="_blank"
+                className="text-sm text-white/60 tracking-wide cursor-pointer font-medium"
+              >
+                {badge}
+              </Link>
             </motion.div>
 
             {/* Title */}
-            <motion.div custom={1} variants={fadeUpVariants} initial="hidden" animate="visible">
+            <motion.div
+              custom={1}
+              variants={fadeUpVariants}
+              initial="hidden"
+              animate="visible"
+            >
               <h1 className="text-5xl sm:text-7xl md:text-9xl font-bold mb-6 md:mb-8 tracking-tight leading-none">
                 <motion.span
                   className="bg-clip-text text-transparent bg-gradient-to-b from-white to-white/80 block"
                   whileHover={{
-                    backgroundImage: "linear-gradient(to bottom, #ffffff, #e0e7ff)",
+                    backgroundImage:
+                      "linear-gradient(to bottom, #ffffff, #e0e7ff)",
                     transition: { duration: 0.3 },
                   }}
                 >
@@ -100,7 +112,8 @@ export default function Landing({
                     pacifico.className,
                   )}
                   whileHover={{
-                    backgroundImage: "linear-gradient(to right, #a5b4fc, #ffffff, #fda4af)",
+                    backgroundImage:
+                      "linear-gradient(to right, #a5b4fc, #ffffff, #fda4af)",
                     transition: { duration: 0.3 },
                   }}
                 >
@@ -110,16 +123,31 @@ export default function Landing({
             </motion.div>
 
             {/* Description */}
-            <motion.div custom={2} variants={fadeUpVariants} initial="hidden" animate="visible">
+            <motion.div
+              custom={2}
+              variants={fadeUpVariants}
+              initial="hidden"
+              animate="visible"
+            >
               <p className="text-lg sm:text-xl md:text-2xl text-white/50 mb-10 leading-relaxed font-light tracking-wide max-w-2xl mx-auto">
-                Transform any website into an interactive AI assistant. Simply enter a URL and start asking questions
-                about the content.
+                Transform any website into an interactive AI assistant. Simply
+                enter a URL and start asking questions about the content.
               </p>
             </motion.div>
 
             {/* CTA Button */}
-            <motion.div custom={3} variants={fadeUpVariants} initial="hidden" animate="visible">
-              <motion.div variants={buttonVariants} whileHover="hover" whileTap="tap" className="inline-block">
+            <motion.div
+              custom={3}
+              variants={fadeUpVariants}
+              initial="hidden"
+              animate="visible"
+            >
+              <motion.div
+                variants={buttonVariants}
+                whileHover="hover"
+                whileTap="tap"
+                className="inline-block"
+              >
                 <Button
                   onClick={() => {
                     router.push("/dashboard");
@@ -131,10 +159,9 @@ export default function Landing({
                 </Button>
               </motion.div>
             </motion.div>
-
           </div>
         </div>
       </div>
     </PageBackground>
-  )
+  );
 }

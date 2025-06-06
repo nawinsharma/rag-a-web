@@ -1,16 +1,16 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { cn } from "@/lib/utils"
+import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 interface ElegantShapeProps {
-  className?: string
-  delay?: number
-  width?: number
-  height?: number
-  rotate?: number
-  gradient?: string
-  intensity?: "low" | "medium" | "high"
+  className?: string;
+  delay?: number;
+  width?: number;
+  height?: number;
+  rotate?: number;
+  gradient?: string;
+  intensity?: "low" | "medium" | "high";
 }
 
 export function ElegantShape({
@@ -26,7 +26,7 @@ export function ElegantShape({
     low: "border-white/[0.08] shadow-[0_4px_16px_0_rgba(255,255,255,0.05)]",
     medium: "border-white/[0.15] shadow-[0_8px_32px_0_rgba(255,255,255,0.1)]",
     high: "border-white/[0.25] shadow-[0_12px_48px_0_rgba(255,255,255,0.15)]",
-  }
+  };
 
   return (
     <motion.div
@@ -80,5 +80,5 @@ export function ElegantShape({
         />
       </motion.div>
     </motion.div>
-  )
+  );
 }
