@@ -59,7 +59,7 @@ export default function Dashboard() {
 
     try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/ingestion`,
+        `${process.env.NEXT_PUBLIC_API_URL}/ingestweb`,
         {
           url,
         },

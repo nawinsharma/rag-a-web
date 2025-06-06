@@ -18,7 +18,7 @@ const pacifico = Pacifico({
 export default function Landing({
   badge = "nawin.xyz",
   title1 = "Interact With",
-  title2 = "Any Website",
+  title2 = "Any Website/pdf",
 }: {
   badge?: string;
   title1?: string;
@@ -95,7 +95,7 @@ export default function Landing({
               initial="hidden"
               animate="visible"
             >
-              <h1 className="text-5xl sm:text-7xl md:text-9xl font-bold mb-6 md:mb-8 tracking-tight leading-none">
+              <h1 className="text-5xl sm:text-7xl md:text-8xl font-bold mb-6 md:mb-8 tracking-tight leading-none">
                 <motion.span
                   className="bg-clip-text text-transparent bg-gradient-to-b from-white to-white/80 block"
                   whileHover={{
@@ -129,7 +129,7 @@ export default function Landing({
               initial="hidden"
               animate="visible"
             >
-              <p className="text-lg sm:text-xl md:text-2xl text-white/50 mb-10 leading-relaxed font-light tracking-wide max-w-2xl mx-auto">
+              <p className="text-lg sm:text-xl md:text-2xl text-white/90 mb-10 leading-relaxed font-light tracking-wide max-w-2xl mx-auto">
                 Transform any website into an interactive AI assistant. Simply
                 enter a URL and start asking questions about the content.
               </p>
@@ -144,18 +144,26 @@ export default function Landing({
             >
               <motion.div
                 variants={buttonVariants}
-                whileHover="hover"
-                whileTap="tap"
-                className="inline-block"
+                className="flex flex-col sm:flex-row gap-4 justify-center items-center"
               >
                 <Button
                   onClick={() => {
                     router.push("/dashboard");
                   }}
                   size="lg"
-                  className="px-10 py-6 text-lg bg-gradient-to-r from-indigo-500 to-pink-300 hover:from-indigo-600 hover:to-pink-400 text-white rounded-full border-none cursor-pointer font-semibold tracking-wide"
+                  className="w-full sm:w-auto px-10 py-6 text-lg bg-gradient-to-r from-indigo-500 to-pink-300 hover:from-indigo-600 hover:to-pink-400 text-white rounded-full border-none cursor-pointer font-semibold tracking-wide transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/25"
                 >
-                  Start Chatting
+                  chat with web
+                </Button>
+
+                <Button
+                  onClick={() => {
+                    router.push("/pdf");
+                  }}
+                  size="lg"
+                  className="w-full sm:w-auto px-10 py-6 text-lg bg-gradient-to-r from-indigo-500 to-pink-300 hover:from-indigo-600 hover:to-pink-400 text-white rounded-full border-none cursor-pointer font-semibold tracking-wide transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/25"
+                >
+                  chat with pdf
                 </Button>
               </motion.div>
             </motion.div>
