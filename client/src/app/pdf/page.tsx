@@ -40,6 +40,15 @@ export default function ChatWithPDF() {
 
   // Handle PDF upload
   const handlePDFUpload = async (file: File) => {
+    // Check file size (10MB = 10 * 1024 * 1024 bytes)
+    const maxSize = 10 * 1024 * 1024; // 10MB in bytes
+    if (file.size > maxSize) {
+      toast.error("File too large", {
+        description: "Please upload a PDF file smaller than 10MB",
+      });
+      return;
+    }
+
     setIsUploading(true)
 
     try {
@@ -162,6 +171,7 @@ export default function ChatWithPDF() {
                   Upload PDF Document
                 </h2>
                 <p className="text-white/60">Upload any PDF document to start an intelligent conversation</p>
+                <p className="text-sm text-red-300">limit size (max 10 mb)</p>
               </div>
 
               <PDFUpload onUpload={handlePDFUpload} isUploading={isUploading} />
