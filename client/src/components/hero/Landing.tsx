@@ -16,7 +16,7 @@ const pacifico = Pacifico({
 });
 
 export default function Landing({
-  badge = "nawin.xyz",
+  badge = "RAG Chatter",
   title1 = "Interact With",
   title2 = "Any Website/pdf",
 }: {
@@ -79,13 +79,9 @@ export default function Landing({
               >
                 <Sparkles size={12} className="text-white" />
               </motion.div>
-              <Link
-                href="https://nawin.xyz"
-                target="_blank"
-                className="text-sm text-white/60 tracking-wide cursor-pointer font-medium"
-              >
+              <span className="text-sm text-white/60 tracking-wide font-medium">
                 {badge}
-              </Link>
+              </span>
             </motion.div>
 
             {/* Title */}
